@@ -33,7 +33,8 @@ def create_booklet(pdf_path,output_path):
         booklet.addPage(pdf_writer.getPage(int(2 * i)))
         booklet.addPage(pdf_writer.getPage(int(2 * i + 1)))
         booklet.addPage(pdf_writer.getPage(int(Num_Pages - 2 * i - 2)))
-     
+
+    output_path += "booklet.pdf"
     with open(output_path, 'wb') as fh:
         booklet.write(fh)
 
@@ -64,9 +65,14 @@ class Booklet_CreatorApp(App):
 
         if pdf_path[-4::] == ".pdf":
             if(PdfFileReader(pdf_path).isEncrypted == False) :
-                output_path = os.getcwd() + "/.output/booklet.pdf"
+
+                output_path = os.getcwd() + "/.output/"
+                if os.path.exists(output_path) == False:
+                    os.mkdir(output_path)
+                    print(output_path)
+                    
                 create_booklet(pdf_path,output_path)
-                os.system("open " + output_path)
+                os.system("open " + output_path + "booklet.pdf")
                 self.root.children[0].text = "Converted!\n\nAdd a new File"
             else :
                 self.root.children[0].text = "The file is Encrypted\n\nRetry after a decryption"
