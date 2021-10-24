@@ -69,7 +69,6 @@ class Booklet_CreatorApp(App):
                 output_path = os.getcwd() + "/.output/"
                 if os.path.exists(output_path) == False:
                     os.mkdir(output_path)
-                    print(output_path)
                     
                 create_booklet(pdf_path,output_path)
                 os.system("open " + output_path + "booklet.pdf")
