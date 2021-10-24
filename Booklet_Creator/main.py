@@ -20,10 +20,10 @@ def create_booklet(pdf_path,output_path):
     pdf_writer = PdfFileWriter()
     pdf_writer.appendPagesFromReader(pdf_reader)
 
-    Num = pdf_reader.numPages % 4
+    Num_addPages = 4 - (pdf_reader.numPages % 4)
 
-    if Num != 0:
-        for i in range(int(4 - Num)):
+    if Num_addPages != 4:
+        for i in range(int(Num_addPages)):
             pdf_writer.addBlankPage()
     
     Num_Pages = pdf_writer.getNumPages() 
